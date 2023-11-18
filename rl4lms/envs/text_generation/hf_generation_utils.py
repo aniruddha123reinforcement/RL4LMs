@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from transformers.generation_utils import GenerationMixin
+from transformers import GenerationMixin
 import inspect
 import warnings
 from dataclasses import dataclass
@@ -51,7 +51,6 @@ from transformers.generation.stopping_criteria import (
     StoppingCriteriaList,
     validate_stopping_criteria,
 )
-from transformers.pytorch_utils import torch_int_div
 from transformers.utils import ModelOutput, logging
 
 
@@ -2299,7 +2298,7 @@ class GenerationMixinWithRawScores:
                 next_token_scores, 2 * num_beams, dim=1, largest=True, sorted=True
             )
 
-            next_indices = torch_int_div(next_tokens, vocab_size)
+            next_indices = next_tokens//vocab_size
             next_tokens = next_tokens % vocab_size
 
             # stateless
@@ -2648,7 +2647,7 @@ class GenerationMixinWithRawScores:
                 next_token_scores, descending=True, dim=1)
             next_tokens = torch.gather(next_tokens, -1, _indices)
 
-            next_indices = torch_int_div(next_tokens, vocab_size)
+            next_indices = next_tokens//vocab_size
             next_tokens = next_tokens % vocab_size
 
             # stateless
@@ -3002,7 +3001,7 @@ class GenerationMixinWithRawScores:
                     next_token_scores, 2 * group_size, dim=1, largest=True, sorted=True
                 )
 
-                next_indices = torch_int_div(next_tokens, vocab_size)
+                next_indices = next_tokens//vocab_size
                 next_tokens = next_tokens % vocab_size
 
                 # stateless
@@ -3032,7 +3031,7 @@ class GenerationMixinWithRawScores:
                 # (beam_idx % group_size) -> offset of idx inside the group
                 reordering_indices[batch_group_indices] = (
                     num_beams *
-                    torch_int_div(beam_idx, group_size) +
+                    (beam_idx//group_size) +
                     group_start_idx + (beam_idx % group_size)
                 )
 
