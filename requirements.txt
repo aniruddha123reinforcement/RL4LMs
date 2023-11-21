@@ -4,7 +4,7 @@ bert-score
 BLEURT @ git+https://github.com/google-research/bleurt.git@cebe7e6f996b40910cfaa520a63db47807e3bf5c
 datasets
 gem-metrics @ git+https://github.com/GEM-benchmark/GEM-metrics.git@8162210e73728c68f886cad6c09160694e3be9d9
-gym
+gymnasium
 jsonlines
 nltk
 pandas
