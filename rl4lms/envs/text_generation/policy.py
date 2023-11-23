@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Any, Dict, Optional, Tuple, List, Union
 import torch
+import gymnasium as gym 
 from gym.spaces import Discrete
 from gym.spaces.dict import Dict as DictSpace
 from stable_baselines3.common.policies import BasePolicy
