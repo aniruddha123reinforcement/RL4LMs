@@ -255,12 +255,7 @@ class CausalLMActorCriticPolicy(LMActorCriticPolicy, ActorCriticWarmStartMixin):
         return ref_policy_outputs
 
     def get_policy_first_device(self):
-        return (
-            self._policy_model.transformer.first_device
-            if self._apply_model_parallel
-            and unwrap_model(self._policy_model).is_parallelizable
-            else "cuda"
-        )
+        return ("cuda")
 
     def get_inputs_for_generation(self, obs: TensorDict):
         gen_inputs = GenerationInputs(
